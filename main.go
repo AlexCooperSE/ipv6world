@@ -6,6 +6,7 @@ import (
 
 	"github.com/alexcooperse/ipv6world/csv"
 	"github.com/alexcooperse/ipv6world/geo"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"gopkg.in/mgo.v2"
 )
@@ -42,6 +43,9 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/api/v1/addresses", geo.GetAddresses(mongoSession)).Methods("GET")
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/")))
+
+	corsObj := handlers.AllowedOrigins([]string{"*"})
+
 	log.Println("Listening on :8000")
-	log.Fatal(http.ListenAndServe(":8000", router))
+	log.Fatal(http.ListenAndServe(":8000", handlers.CORS(corsObj)(router)))
 }

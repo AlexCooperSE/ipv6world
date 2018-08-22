@@ -1,7 +1,7 @@
 // request address data from server
 var addresses = $.ajax({
-    // url: "http://127.0.0.1:8000/api/v1/addresses",
-    url: "http://127.0.0.1:8000/api/v1/addresses?bbox=-79,35,-78,36",
+    url: "http://127.0.0.1:8000/api/v1/addresses",
+    // url: "http://127.0.0.1:8000/api/v1/addresses?bbox=-79,35,-78,36",
     dataType: "json",
     error: function(xhr) {
         alert(xhr.statusText)
